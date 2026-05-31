@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jadwal & Timeline Tugas Nilam</title>
+    <!-- Library untuk mengambil screenshot HTML menjadi Gambar -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap');
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: #f1f5f9;
+            color: #1e293b;
+            padding: 20px 10px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+
+        /* Header Style */
+        header {
+            background: linear-gradient(135deg, #4f46e5, #3730a3);
+            color: white;
+            padding: 25px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.2);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        @media (min-width: 768px) {
+            header {
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+            }
+        }
+
+        .header-text h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .header-text p {
+            color: #c7d2fe;
+            font-size: 14px;
+        }
+
+        /* Action Buttons Area */
+        .header-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        @media (min-width: 768px) {
+            .header-actions {
+                align-items: flex-end;
+            }
+        }
+
+        /* Stats Badge */
+        .stats-container {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px 20px;
+            border-radius: 12px;
+            gap: 20px;
+            backdrop-filter: blur(5px);
+        }
+
+        .stat-box {
+            text-align: center;
+        }
+
+        .stat-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #c7d2fe;
+            font-weight: 700;
+        }
+
+        .stat-value {
+            font-size: 18px;
+            font-weight: 800;
+        }
+
+        /* Button Simpan Gambar */
+        .btn-screenshot {
+            background-color: #10b981;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 6px -1px rgba(16, 185, 129, 0.2);
+            transition: all 0.2s;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-screenshot:hover {
+            background-color: #059669;
+            transform: translateY(-1px);
+        }
+
+        .btn-screenshot:active {
+            transform: translateY(1px);
+        }
+
+        @media (min-width: 768px) {
+            .btn-screenshot {
+                width: auto;
+            }
+        }
+
+        /* Grid Layout */
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-layout {
+                grid-template-columns: 1fr 2.2fr;
+            }
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 20px;
+            border: 1px solid #e2e8f0;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-priority {
+            border-top: 5px solid #ef4444;
+            background: #fff5f5;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 800;
+            margin-bottom: 15px;
+            color: #0f172a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .badge-del {
+            background: #fee2e2;
+            color: #991b1b;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+        /* Form Input */
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 13px;
+            background: #f8fafc;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: #4f46e5;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: #3730a3;
+        }
+
+        /* Timeline & Day Styles */
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #f1f5f9;
+            margin-bottom: 15px;
+        }
+
+        .day-name {
+            font-size: 18px;
+            font-weight: 800;
+            color: #1e1b4b;
+        }
+
+        .badge-tag {
+            background: #e0e7ff;
+            color: #3730a3;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+
+        .badge-warning { background: #fef3c7; color: #92400e; }
+        .badge-danger { background: #fee2e2; color: #991b1b; }
+
+        /* Agenda / Kegiatan Terjadwal */
+        .agenda-section {
+            margin-bottom: 15px;
+        }
+
+        .agenda-item {
+            background: #f8fafc;
+            border-left: 4px solid #4f46e5;
+            padding: 10px 12px;
+            border-radius: 0 10px 10px 0;
+            margin-bottom: 10px;
+            font-size: 13px;
+        }
+
+        .agenda-time {
+            font-weight: 800;
+            color: #4f46e5;
+            font-size: 11px;
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        /* Task Items */
+        .task-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .task-item.completed {
+            opacity: 0.4;
+            text-decoration: line-through;
+            background: #f8fafc;
+        }
+
+        .task-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .task-checkbox {
+            width: 18px;
+            height: 18px;
+            accent-color: #4f46e5;
+            cursor: pointer;
+        }
+
+        .task-text {
+            font-size: 14px;
+            font-weight: 600;
+            color: #334155;
+        }
+
+        .task-info {
+            display: flex;
+            gap: 5px;
+            margin-top: 3px;
+        }
+
+        .btn-delete {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .btn-delete:hover {
+            color: #ef4444;
+        }
+
+        /* Header khusus untuk hasil export gambar (default disembunyikan di web) */
+        .capture-header {
+            display: none;
+            background: linear-gradient(135deg, #4f46e5, #3730a3);
+            color: white;
+            padding: 24px;
+            border-radius: 20px;
+            margin-bottom: 25px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .capture-header h2 {
+            font-size: 26px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            letter-spacing: 0.5px;
+        }
+
+        .capture-header p {
+            color: #c7d2fe;
+            font-size: 14px;
+        }
+
+        /* ATURAN TRANSFORMAST TABEL SAAT PROSES PENGAMBILAN GAMBAR (CAPTURING) */
+        .capturing .capture-header {
+            display: block !important;
+        }
+        
+        .capturing #left-panel {
+            display: none !important; /* Hilangkan panel form & priority di gambar */
+        }
+        
+        .capturing .btn-delete {
+            display: none !important; /* Hilangkan tombol silang hapus di gambar */
+        }
+
+        .capturing .grid-layout {
+            grid-template-columns: 1fr !important; /* Jadikan full width */
+            display: block !important;
+        }
+
+        /* Paksa area jadwal berubah menjadi Tabel Grid 5-Kolom Horizontal */
+        .capturing #timetable-board {
+            width: 1350px !important; /* Ukuran lebar optimal landscape */
+            max-width: 1350px !important;
+            padding: 35px !important;
+            background-color: #f8fafc !important;
+            border-radius: 24px !important;
+        }
+        
+        .capturing #right-panel {
+            display: grid !important;
+            grid-template-columns: repeat(5, 1fr) !important; /* 5 Kolom sejajar (Senin - Jumat) */
+            gap: 15px !important;
+            width: 100% !important;
+        }
+
+        .capturing .card {
+            margin-bottom: 0 !important;
+            height: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            border: 1.5px solid #cbd5e1 !important; /* Garis tepi tabel lebih jelas */
+            border-radius: 16px !important;
+            box-shadow: none !important;
+            background: #ffffff !important;
+        }
+
+        .capturing .task-checkbox {
+            display: none !important; /* Sembunyikan checkbox buletan pas disimpan jadi poster */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="timeline-app-container">
+        <!-- Header Web (Hanya muncul di browser, otomatis hilang saat disimpan ke gambar) -->
+        <header>
+            <div class="header-text">
+                <h1>📅 Planner & Timeline Tugas</h1>
+                <p>Otomatisasi jadwal kuliah, BEM, dan organisasi HMTE Nilam</p>
+            </div>
+            <div class="header-actions">
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <div class="stat-label">Total</div>
+                        <div class="stat-value" id="stat-total">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Selesai</div>
+                        <div class="stat-value" id="stat-done" style="color: #4ade80;">0</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Progres</div>
+                        <div class="stat-value" id="stat-progress" style="color: #60a5fa;">0%</div>
+                    </div>
+                </div>
+                <!-- Tombol Eksport Gambar -->
+                <button type="button" class="btn-screenshot" onclick="saveAsImage()">
+                    📸 Simpan sebagai Gambar (Tabel)
+                </button>
+            </div>
+        </header>
+
+        <!-- AREA UTAMA YANG AKAN DISIMPAN SEBAGAI GAMBAR -->
+        <div id="timetable-board">
+            
+            <!-- Header khusus hasil screenshot gambar (Hanya muncul di file gambar hasil ekspor) -->
+            <div class="capture-header">
+                <h2>📅 JADWAL & TIMELINE MINGGUAN</h2>
+                <p>Program Kerja, Kuliah, BEM, dan Organisasi HMTE Nilam</p>
+            </div>
+
+            <div class="grid-layout">
+                <!-- PANEL KIRI (Form Tambah Tugas & Prioritas) -->
+                <div id="left-panel">
+                    <!-- Prioritas HMTE -->
+                    <div class="card card-priority">
+                        <div class="card-title">
+                            <span>⚠️ PRIORITAS HMTE / SENIN</span>
+                            <span class="badge-del">DEADLINE SENIN</span>
+                        </div>
+                        <div id="priority-container">
+                        </div>
+                    </div>
+
+                    <!-- Tambah Tugas Form (Akan disembunyikan otomatis di dalam gambar) -->
+                    <div class="card" id="task-form-card">
+                        <div class="card-title">➕ Tambah Tugas / Agenda</div>
+                        <form id="task-form">
+                            <div class="form-group">
+                                <label>Nama Tugas / Kegiatan</label>
+                                <input type="text" id="in-name" class="form-control" required placeholder="Contoh: Laprak Revisi...">
+                            </div>
+                            <div class="form-group">
+                                <label>Hari Pengerjaan</label>
+                                <select id="in-day" class="form-control">
+                                    <option value="senin">Senin</option>
+                                    <option value="selasa">Selasa</option>
+                                    <option value="rabu">Rabu</option>
+                                    <option value="kamis">Kamis</option>
+                                    <option value="jumat">Jumat</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Kategori</label>
+                                <select id="in-cat" class="form-control">
+                                    <option value="tugas">Tugas Kuliah</option>
+                                    <option value="organisasi">Organisasi (HMTE/BEM)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Hari Pengumpulan</label>
+                                <select id="in-dl" class="form-control">
+                                    <option value="-">Tidak Ada</option>
+                                    <option value="senin">Senin</option>
+                                    <option value="selasa">Selasa</option>
+                                    <option value="rabu">Rabu</option>
+                                    <option value="kamis">Kamis</option>
+                                    <option value="jumat">Jumat</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn">Tambahkan ke Timeline</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- PANEL KANAN: TIMELINE HARIAN (Menjadi 5 kolom horizontal saat diekspor) -->
+                <div id="right-panel">
+                    <!-- SENIN -->
+                    <div class="card">
+                        <div class="day-header">
+                            <span class="day-name">Senin</span>
+                            <span class="badge-tag badge-danger">Sangat Padat</span>
+                        </div>
+                        <div class="agenda-section">
+                            <div class="agenda-item"><span class="agenda-time">08:00 - 14:00</span><strong>Grand Launching BEM KM SV</strong></div>
+                            <div class="agenda-item"><span class="agenda-time">14:00</span><strong>Kerkom Kewirus</strong></div>
+                            <div class="agenda-item"><span class="agenda-time">16:00 - 20:00</span><strong>Rapat BEM KM SV</strong></div>
+                            <div class="agenda-item"><span class="agenda-time">20:00</span><strong>Kerkom Transmisi</strong></div>
+                        </div>
+                        <div id="box-senin"></div>
+                    </div>
+
+                    <!-- SELASA -->
+                    <div class="card">
+                        <div class="day-header">
+                            <span class="day-name">Selasa</span>
+                            <span class="badge-tag">Kuliah 07-16</span>
+                        </div>
+                        <div class="agenda-section">
+                            <div class="agenda-item" style="border-left-color: #f59e0b;"><span class="agenda-time">19:00 - Selesai</span><strong>Sesi Nugas Intensif (Target Sebelum Rabu)</strong></div>
+                        </div>
+                        <div id="box-selasa"></div>
+                    </div>
+
+                    <!-- RABU -->
+                    <div class="card">
+                        <div class="day-header">
+                            <span class="day-name">Rabu</span>
+                            <span class="badge-tag badge-warning">Fokus Tugas</span>
+                        </div>
+                        <div id="box-rabu"></div>
+                    </div>
+
+                    <!-- KAMIS -->
+                    <div class="card" style="border-left: 5px solid #ef4444;">
+                        <div class="day-header">
+                            <span class="day-name" style="color: #ef4444;">Kamis</span>
+                            <span class="badge-tag badge-danger">KUIS HARI</span>
+                        </div>
+                        <div class="agenda-section">
+                            <div class="agenda-item" style="border-left-color: #ef4444;"><span class="agenda-time">Jam Kuliah</span><strong>Kuis Teknik Kendali ⚠️</strong></div>
+                        </div>
+                        <div id="box-kamis"></div>
+                    </div>
+
+                    <!-- JUMAT -->
+                    <div class="card">
+                        <div class="day-header">
+                            <span class="day-name">Jumat</span>
+                            <span class="badge-tag">Finalisasi</span>
+                        </div>
+                        <div id="box-jumat"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data Awal Tugas
+        let tasks = [
+            { id: 1, name: "Zoom ATS", day: "senin", cat: "tugas", dl: "senin", done: false },
+            { id: 2, name: "Bikin Timeline GBHO", day: "senin", cat: "organisasi", dl: "senin", done: false },
+            { id: 3, name: "Follow up yang belum ngisi timeline", day: "senin", cat: "organisasi", dl: "senin", done: false },
+            { id: 4, name: "Print Stiker Packaging Kewirus", day: "selasa", cat: "tugas", dl: "selasa", done: false },
+            { id: 5, name: "Bikin PPT Prototype (Kewirus)", day: "selasa", cat: "tugas", dl: "rabu", done: false },
+            { id: 6, name: "Program PLC", day: "selasa", cat: "tugas", dl: "jumat", done: false },
+            { id: 7, name: "Laprak Audit", day: "selasa", cat: "tugas", dl: "rabu", done: false },
+            { id: 8, name: "Progres Transmisi (Latex, 3D, dll)", day: "rabu", cat: "tugas", dl: "kamis", done: false },
+            { id: 9, name: "Laprak Proteksi", day: "rabu", cat: "tugas", dl: "kamis", done: false },
+            { id: 10, name: "Bikin Naskah Video Proteksi Sepam", day: "rabu", cat: "tugas", dl: "kamis", done: false },
+            { id: 11, name: "Teknik Kendali (Review Materi)", day: "rabu", cat: "tugas", dl: "kamis", done: false },
+            { id: 12, name: "Program PLC (Final)", day: "jumat", cat: "tugas", dl: "jumat", done: false },
+            { id: 13, name: "Laprak Otomasi", day: "jumat", cat: "tugas", dl: "jumat", done: false }
+        ];
+
+        function render() {
+            // Reset isi container harian
+            const days = ['senin', 'selasa', 'rabu', 'kamis', 'jumat'];
+            days.forEach(d => document.getElementById(`box-${d}`).innerHTML = '');
+            document.getElementById('priority-container').innerHTML = '';
+
+            // Hitung statistik
+            let total = tasks.length;
+            let done = tasks.filter(t => t.done).length;
+            document.getElementById('stat-total').innerText = total;
+            document.getElementById('stat-done').innerText = done;
+            document.getElementById('stat-progress').innerText = total > 0 ? Math.round((done/total)*100) + '%' : '0%';
+
+            // Render masing-masing item
+            tasks.forEach(t => {
+                let badgeDl = t.dl !== '-' ? `<span class="badge-tag badge-warning">Kumpul: ${t.dl.toUpperCase()}</span>` : '';
+                
+                // Template item
+                let html = `
+                    <div class="task-item ${t.done ? 'completed' : ''}">
+                        <div class="task-left">
+                            <input type="checkbox" class="task-checkbox" ${t.done ? 'checked' : ''} onchange="toggle(${t.id})">
+                            <div>
+                                <div class="task-text">${t.name}</div>
+                                <div class="task-info">
+                                    <span class="badge-tag">${t.cat}</span>
+                                    ${badgeDl}
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn-delete" onclick="remove(${t.id})">✕</button>
+                    </div>
+                `;
+
+                // Masukkan ke hari masing-masing
+                let box = document.getElementById(`box-${t.day}`);
+                if(box) box.innerHTML += html;
+
+                // Jika kategori organisasi atau dikerjakan senin, masuk box prioritas kiri
+                if(t.cat === 'organisasi' || t.day === 'senin') {
+                    let pBox = document.getElementById('priority-container');
+                    let pHtml = `
+                        <div class="task-item ${t.done ? 'completed' : ''}" style="background: #fff; border-left: 3px solid #ef4444;">
+                            <div class="task-left">
+                                <input type="checkbox" class="task-checkbox" ${t.done ? 'checked' : ''} onchange="toggle(${t.id})">
+                                <div class="task-text" style="font-size: 13px;">${t.name}</div>
+                            </div>
+                        </div>
+                    `;
+                    pBox.innerHTML += pHtml;
+                }
+            });
+        }
+
+        function toggle(id) {
+            tasks = tasks.map(t => t.id === id ? {...t, done: !t.done} : t);
+            render();
+        }
+
+        function remove(id) {
+            tasks = tasks.filter(t => t.id !== id);
+            render();
+        }
+
+        // Fungsi menyimpan area jadwal dan tugas saja menjadi Gambar PNG berbentuk Tabel
+        function saveAsImage() {
+            const container = document.body;
+            const board = document.getElementById('timetable-board');
+            const downloadBtn = document.querySelector('.btn-screenshot');
+            
+            // Masuk ke mode "capturing"
+            container.classList.add('capturing');
+            downloadBtn.innerText = "⏳ Memproses Gambar...";
+            downloadBtn.style.opacity = "0.7";
+
+            // Jalankan html2canvas ke elemen papan jadwal (#timetable-board) saja
+            setTimeout(() => {
+                html2canvas(board, {
+                    scale: 2.2, // Kualitas super HD agar tulisan tajam saat di-zoom
+                    useCORS: true,
+                    backgroundColor: "#f1f5f9"
+                }).then(canvas => {
+                    // Unduh file PNG otomatis
+                    const link = document.createElement('a');
+                    link.download = 'timeline-tugas-nilam.png';
+                    link.href = canvas.toDataURL('image/png');
+                    link.click();
+
+                    // Keluar dari mode capturing dan kembalikan ke tampilan normal web
+                    container.classList.remove('capturing');
+                    downloadBtn.innerText = "📸 Simpan sebagai Gambar (Tabel)";
+                    downloadBtn.style.opacity = "1";
+                }).catch(err => {
+                    console.error("Gagal menyimpan gambar:", err);
+                    container.classList.remove('capturing');
+                    downloadBtn.innerText = "📸 Simpan sebagai Gambar (Tabel)";
+                    downloadBtn.style.opacity = "1";
+                });
+            }, 300); // Jeda kecil agar DOM sempat terupdate sebelum dijepret
+        }
+
+        // Handle tambah data baru via form
+        document.getElementById('task-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let name = document.getElementById('in-name').value;
+            let day = document.getElementById('in-day').value;
+            let cat = document.getElementById('in-cat').value;
+            let dl = document.getElementById('in-dl').value;
+
+            tasks.push({ id: Date.now(), name, day, cat, dl, done: false });
+            render();
+            this.reset();
+        });
+
+        // Jalankan render pertama kali
+        render();
+    </script>
+</body>
+</html>
