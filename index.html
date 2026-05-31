@@ -145,19 +145,31 @@
             transform: translateY(-1px);
         }
 
-        .btn-wallpaper {
-            background-color: #818cf8;
-            box-shadow: 0 4px 6px -1px rgba(129, 140, 248, 0.2);
-        }
-
-        .btn-wallpaper:hover {
-            background-color: #6366f1;
-        }
-
         @media (min-width: 768px) {
             .btn-screenshot {
                 width: auto;
             }
+        }
+
+        /* Day Wallpaper Quick Button */
+        .btn-day-wallpaper {
+            background: rgba(99, 102, 241, 0.1);
+            color: #4f46e5;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            padding: 6px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .btn-day-wallpaper:hover {
+            background: #4f46e5;
+            color: white;
         }
 
         /* Grid Layout */
@@ -254,6 +266,7 @@
             padding-bottom: 12px;
             border-bottom: 2px solid #f1f5f9;
             margin-bottom: 15px;
+            gap: 10px;
         }
 
         .day-name {
@@ -382,11 +395,11 @@
             display: none;
             text-align: center;
             margin-top: auto;
-            padding: 10px 0;
-            color: #a5b4fc;
-            font-size: 14px;
+            padding: 20px 0;
+            color: #818cf8;
+            font-size: 16px;
             font-weight: 800;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
             text-shadow: 0 0 10px rgba(129, 140, 248, 0.4);
         }
@@ -402,6 +415,10 @@
         }
         
         .capturing-table .btn-delete {
+            display: none !important;
+        }
+        
+        .capturing-table .btn-day-wallpaper {
             display: none !important;
         }
 
@@ -441,28 +458,28 @@
         }
 
 
-        /* ==================== ATURAN EKSPOR GAYA WALLPAPER HP (9:16 VERTICAL) ==================== */
+        /* ==================== ATURAN EKSPOR GAYA WALLPAPER HP (9:16 VERTICAL PER HARI) ==================== */
         .capturing-wallpaper .capture-header {
             display: block !important;
             background: transparent !important;
             box-shadow: none !important;
             padding: 0 !important;
-            margin-bottom: 30px !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-            padding-bottom: 20px !important;
+            margin-bottom: 40px !important;
+            border-bottom: 1.5px solid rgba(255, 255, 255, 0.1) !important;
+            padding-bottom: 25px !important;
         }
         
         .capturing-wallpaper .capture-header h2 {
-            font-size: 38px !important;
-            color: #ffffff !important;
-            text-shadow: 0 0 15px rgba(99, 102, 241, 0.6) !important;
-            letter-spacing: 1px !important;
+            font-size: 32px !important;
+            color: #818cf8 !important;
+            text-shadow: 0 0 15px rgba(99, 102, 241, 0.4) !important;
+            letter-spacing: 2px !important;
         }
 
         .capturing-wallpaper .capture-header p {
-            color: #a5b4fc !important;
+            color: #94a3b8 !important;
             font-size: 16px !important;
-            margin-top: 5px !important;
+            margin-top: 6px !important;
         }
 
         .capturing-wallpaper #left-panel {
@@ -470,6 +487,10 @@
         }
         
         .capturing-wallpaper .btn-delete {
+            display: none !important;
+        }
+
+        .capturing-wallpaper .btn-day-wallpaper {
             display: none !important;
         }
 
@@ -482,8 +503,8 @@
         .capturing-wallpaper #timetable-board {
             width: 1080px !important;
             height: 1920px !important;
-            padding: 70px 50px !important;
-            background: linear-gradient(135deg, #090d16 0%, #0f172a 50%, #1e1b4b 100%) !important;
+            padding: 90px 70px !important;
+            background: linear-gradient(135deg, #070a13 0%, #0f172a 60%, #17123a 100%) !important;
             border-radius: 0px !important; /* Fullscreen wallpaper murni */
             box-shadow: none !important;
             display: flex !important;
@@ -492,15 +513,15 @@
             overflow: hidden !important;
         }
 
-        /* Spot pencahayaan neon fiktif di latar belakang wallpaper */
+        /* Efek cahaya ambient neon */
         .capturing-wallpaper #timetable-board::before {
             content: "" !important;
             position: absolute !important;
-            top: -100px !important;
-            left: -100px !important;
-            width: 600px !important;
-            height: 600px !important;
-            background: radial-gradient(circle, rgba(99, 102, 241, 0.22) 0%, rgba(0,0,0,0) 70%) !important;
+            top: -150px !important;
+            left: -150px !important;
+            width: 700px !important;
+            height: 700px !important;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.25) 0%, rgba(0,0,0,0) 70%) !important;
             z-index: 0 !important;
             pointer-events: none !important;
         }
@@ -508,11 +529,11 @@
         .capturing-wallpaper #timetable-board::after {
             content: "" !important;
             position: absolute !important;
-            bottom: 100px !important;
+            bottom: -50px !important;
             right: -100px !important;
-            width: 500px !important;
-            height: 500px !important;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.15) 0%, rgba(0,0,0,0) 70%) !important;
+            width: 600px !important;
+            height: 600px !important;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.18) 0%, rgba(0,0,0,0) 70%) !important;
             z-index: 0 !important;
             pointer-events: none !important;
         }
@@ -520,82 +541,120 @@
         .capturing-wallpaper #right-panel {
             display: flex !important;
             flex-direction: column !important;
-            gap: 25px !important; /* Spacing ideal untuk mengisi ruang vertikal HP */
             width: 100% !important;
             height: 100% !important;
             z-index: 1 !important;
         }
 
-        /* Kartu dengan tampilan semi transparan (Glassmorphism) premium */
-        .capturing-wallpaper .card {
-            background: rgba(255, 255, 255, 0.04) !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            border-radius: 24px !important;
-            padding: 24px 28px !important;
-            margin-bottom: 0 !important;
-            color: #f1f5f9 !important;
-            backdrop-filter: blur(15px) !important;
-            -webkit-backdrop-filter: blur(15px) !important;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+        /* Sembunyikan semua hari secara bawaan */
+        .capturing-wallpaper #right-panel > .card {
+            display: none !important;
         }
 
+        /* Tampilkan hanya hari yang dipilih dengan style glassmorphism super luas & bersih */
+        .capturing-wallpaper #timetable-board[data-capture-day="senin"] #card-senin,
+        .capturing-wallpaper #timetable-board[data-capture-day="selasa"] #card-selasa,
+        .capturing-wallpaper #timetable-board[data-capture-day="rabu"] #card-rabu,
+        .capturing-wallpaper #timetable-board[data-capture-day="kamis"] #card-kamis,
+        .capturing-wallpaper #timetable-board[data-capture-day="jumat"] #card-jumat {
+            display: flex !important;
+            flex-direction: column !important;
+            background: rgba(255, 255, 255, 0.03) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 32px !important;
+            padding: 50px 45px !important;
+            width: 100% !important;
+            margin: 0 !important;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.4) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+        }
+
+        /* Pembesar teks pada wallpaper */
         .capturing-wallpaper .day-name {
             color: #ffffff !important;
-            font-size: 22px !important;
+            font-size: 54px !important; /* Hari super besar */
             font-weight: 800 !important;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.2) !important;
         }
 
         .capturing-wallpaper .day-header {
-            border-bottom: 1.5px solid rgba(255, 255, 255, 0.08) !important;
-            padding-bottom: 10px !important;
-            margin-bottom: 12px !important;
-        }
-
-        .capturing-wallpaper .agenda-item {
-            background: rgba(255, 255, 255, 0.03) !important;
-            border-left: 4px solid #818cf8 !important;
-            color: #cbd5e1 !important;
-            border-radius: 0 12px 12px 0 !important;
-            padding: 12px 16px !important;
-        }
-
-        .capturing-wallpaper .agenda-time {
-            color: #a5b4fc !important;
-            font-weight: 800 !important;
-        }
-
-        .capturing-wallpaper .task-item {
-            background: rgba(255, 255, 255, 0.02) !important;
-            border: 1px solid rgba(255, 255, 255, 0.04) !important;
-            border-radius: 12px !important;
-            padding: 10px 14px !important;
-        }
-
-        .capturing-wallpaper .task-text {
-            color: #e2e8f0 !important;
-            font-size: 14px !important;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1) !important;
+            padding-bottom: 20px !important;
+            margin-bottom: 35px !important;
         }
 
         .capturing-wallpaper .badge-tag {
+            font-size: 18px !important;
+            padding: 6px 16px !important;
+            border-radius: 10px !important;
             background: rgba(129, 140, 248, 0.15) !important;
             color: #c7d2fe !important;
-            border: 1px solid rgba(129, 140, 248, 0.2) !important;
+            border: 1.5px solid rgba(129, 140, 248, 0.2) !important;
         }
 
         .capturing-wallpaper .badge-warning {
             background: rgba(245, 158, 11, 0.15) !important;
             color: #fde047 !important;
-            border: 1px solid rgba(245, 158, 11, 0.2) !important;
+            border: 1.5px solid rgba(245, 158, 11, 0.2) !important;
         }
 
         .capturing-wallpaper .badge-danger {
             background: rgba(239, 68, 68, 0.15) !important;
             color: #fca5a5 !important;
-            border: 1px solid rgba(239, 68, 68, 0.2) !important;
+            border: 1.5px solid rgba(239, 68, 68, 0.2) !important;
+        }
+
+        /* Agenda / Agenda Terjadwal di Wallpaper */
+        .capturing-wallpaper .agenda-item {
+            background: rgba(255, 255, 255, 0.02) !important;
+            border-left: 6px solid #818cf8 !important;
+            color: #cbd5e1 !important;
+            border-radius: 0 16px 16px 0 !important;
+            padding: 18px 24px !important;
+            margin-bottom: 18px !important;
+        }
+
+        .capturing-wallpaper .agenda-time {
+            color: #818cf8 !important;
+            font-weight: 800 !important;
+            font-size: 16px !important;
+            margin-bottom: 4px !important;
+        }
+
+        .capturing-wallpaper .agenda-item strong {
+            font-size: 20px !important;
+        }
+
+        /* Item Tugas di Wallpaper */
+        .capturing-wallpaper .task-item {
+            background: rgba(255, 255, 255, 0.01) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.04) !important;
+            border-radius: 16px !important;
+            padding: 16px 20px !important;
+            margin-bottom: 12px !important;
+        }
+
+        .capturing-wallpaper .task-text {
+            color: #f1f5f9 !important;
+            font-size: 20px !important; /* Tulisan tugas lebih besar agar terbaca jelas */
         }
 
         .capturing-wallpaper .task-checkbox {
-            display: none !important;
+            display: none !important; /* Sembunyikan kotak centang input */
+        }
+
+        .capturing-wallpaper .task-left {
+            gap: 0 !important; /* Hilangkan gap bekas checkbox */
+        }
+
+        /* Tambahkan bullet point bulat mengkilap sebagai pengganti checkbox */
+        .capturing-wallpaper .task-left::before {
+            content: "•" !important;
+            color: #818cf8 !important;
+            font-size: 32px !important;
+            margin-right: 14px !important;
+            line-height: 1 !important;
         }
 
         .capturing-wallpaper .wallpaper-footer {
@@ -632,9 +691,6 @@
                     <button type="button" class="btn-screenshot" onclick="saveAsImage('table')">
                         📸 Simpan Gambar (Tabel Landscape)
                     </button>
-                    <button type="button" class="btn-screenshot btn-wallpaper" onclick="saveAsImage('wallpaper')">
-                        📱 Simpan Wallpaper HP (9:16 Vertikal)
-                    </button>
                 </div>
             </div>
         </header>
@@ -644,7 +700,7 @@
             
             <!-- Header khusus hasil screenshot gambar -->
             <div class="capture-header">
-                <h2>📅 JADWAL & TIMELINE MINGGUAN</h2>
+                <h2>📅 JADWAL & TIMELINE HARIAN</h2>
                 <p>Program Kerja, Kuliah, BEM, dan Organisasi HMTE Nilam</p>
             </div>
 
@@ -705,10 +761,11 @@
                 <!-- PANEL KANAN: TIMELINE HARIAN -->
                 <div id="right-panel">
                     <!-- SENIN -->
-                    <div class="card">
+                    <div class="card" id="card-senin">
                         <div class="day-header">
                             <span class="day-name">Senin</span>
                             <span class="badge-tag badge-danger">Sangat Padat</span>
+                            <button type="button" class="btn-day-wallpaper" onclick="saveAsImage('wallpaper', 'senin')">📱 Wallpaper</button>
                         </div>
                         <div class="agenda-section">
                             <div class="agenda-item"><span class="agenda-time">08:00 - 14:00</span><strong>Grand Launching BEM KM SV</strong></div>
@@ -720,10 +777,11 @@
                     </div>
 
                     <!-- SELASA -->
-                    <div class="card">
+                    <div class="card" id="card-selasa">
                         <div class="day-header">
                             <span class="day-name">Selasa</span>
                             <span class="badge-tag">Kuliah 07-16</span>
+                            <button type="button" class="btn-day-wallpaper" onclick="saveAsImage('wallpaper', 'selasa')">📱 Wallpaper</button>
                         </div>
                         <div class="agenda-section">
                             <div class="agenda-item" style="border-left-color: #f59e0b;"><span class="agenda-time">19:00 - Selesai</span><strong>Sesi Nugas Intensif (Target Sebelum Rabu)</strong></div>
@@ -732,19 +790,21 @@
                     </div>
 
                     <!-- RABU -->
-                    <div class="card">
+                    <div class="card" id="card-rabu">
                         <div class="day-header">
                             <span class="day-name">Rabu</span>
                             <span class="badge-tag badge-warning">Fokus Tugas</span>
+                            <button type="button" class="btn-day-wallpaper" onclick="saveAsImage('wallpaper', 'rabu')">📱 Wallpaper</button>
                         </div>
                         <div id="box-rabu"></div>
                     </div>
 
                     <!-- KAMIS -->
-                    <div class="card" style="border-left: 5px solid #ef4444;">
+                    <div class="card" id="card-kamis" style="border-left: 5px solid #ef4444;">
                         <div class="day-header">
                             <span class="day-name" style="color: #ef4444;">Kamis</span>
                             <span class="badge-tag badge-danger">KUIS HARI</span>
+                            <button type="button" class="btn-day-wallpaper" onclick="saveAsImage('wallpaper', 'kamis')">📱 Wallpaper</button>
                         </div>
                         <div class="agenda-section">
                             <div class="agenda-item" style="border-left-color: #ef4444;"><span class="agenda-time">Jam Kuliah</span><strong>Kuis Teknik Kendali ⚠️</strong></div>
@@ -753,10 +813,11 @@
                     </div>
 
                     <!-- JUMAT -->
-                    <div class="card">
+                    <div class="card" id="card-jumat">
                         <div class="day-header">
                             <span class="day-name">Jumat</span>
                             <span class="badge-tag">Finalisasi</span>
+                            <button type="button" class="btn-day-wallpaper" onclick="saveAsImage('wallpaper', 'jumat')">📱 Wallpaper</button>
                         </div>
                         <div id="box-jumat"></div>
                     </div>
@@ -853,28 +914,32 @@
         }
 
         // Fungsi menyimpan area jadwal dan tugas saja
-        function saveAsImage(type) {
+        function saveAsImage(type, day = 'senin') {
             const container = document.body;
             const board = document.getElementById('timetable-board');
             const downloadBtns = document.querySelectorAll('.btn-screenshot');
+            const dayBtns = document.querySelectorAll('.btn-day-wallpaper');
             
             // Tentukan tipe capturing yang dipanggil (table atau wallpaper)
             const captureClass = type === 'wallpaper' ? 'capturing-wallpaper' : 'capturing-table';
-            const fileName = type === 'wallpaper' ? 'wallpaper-timeline-nilam.png' : 'timeline-tugas-nilam.png';
+            const fileName = type === 'wallpaper' ? `wallpaper-${day}-nilam.png` : 'timeline-tugas-nilam.png';
+
+            if (type === 'wallpaper') {
+                // Beri tahu sistem HTML hari mana yang sedang dipotret
+                board.setAttribute('data-capture-day', day);
+            }
 
             // Masuk ke mode "capturing"
             container.classList.add(captureClass);
-            downloadBtns.forEach(btn => {
-                btn.style.opacity = "0.5";
-                btn.style.pointerEvents = "none";
-            });
+            downloadBtns.forEach(btn => btn.style.opacity = "0.5");
+            dayBtns.forEach(btn => btn.style.opacity = "0.5");
 
             // Jalankan html2canvas ke elemen papan jadwal (#timetable-board) saja
             setTimeout(() => {
                 html2canvas(board, {
                     scale: 2.2, // Kualitas HD agar super jernih di layar HP
                     useCORS: true,
-                    backgroundColor: type === 'wallpaper' ? '#090d16' : '#f1f5f9'
+                    backgroundColor: type === 'wallpaper' ? '#070a13' : '#f1f5f9'
                 }).then(canvas => {
                     // Unduh file PNG otomatis
                     const link = document.createElement('a');
@@ -884,17 +949,15 @@
 
                     // Keluar dari mode capturing dan kembalikan ke tampilan normal web
                     container.classList.remove(captureClass);
-                    downloadBtns.forEach(btn => {
-                        btn.style.opacity = "1";
-                        btn.style.pointerEvents = "auto";
-                    });
+                    board.removeAttribute('data-capture-day');
+                    downloadBtns.forEach(btn => btn.style.opacity = "1");
+                    dayBtns.forEach(btn => btn.style.opacity = "1");
                 }).catch(err => {
                     console.error("Gagal menyimpan gambar:", err);
                     container.classList.remove(captureClass);
-                    downloadBtns.forEach(btn => {
-                        btn.style.opacity = "1";
-                        btn.style.pointerEvents = "auto";
-                    });
+                    board.removeAttribute('data-capture-day');
+                    downloadBtns.forEach(btn => btn.style.opacity = "1");
+                    dayBtns.forEach(btn => btn.style.opacity = "1");
                 });
             }, 400); // Jeda kecil agar DOM sempat terupdate sebelum dijepret
         }
